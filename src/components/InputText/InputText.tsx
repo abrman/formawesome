@@ -1,4 +1,5 @@
 import React from "react";
+import { FormContext } from "../../hooks";
 import "./InputText.css";
 
 type Validation =
@@ -8,29 +9,66 @@ type Validation =
 
 type Check = { type: "incomplete" | "complete"; message: string }[];
 
-type TransformerFunction = (value: string) => any;
+type StringTransformerFunction = (value: string) => any;
 
-type ValidatorFunction = (
+type StringValidatorFunction = (
   value: string | any,
-  transformer: TransformerFunction
+  transformer: StringTransformerFunction
 ) => Exclude<Validation, "awaiting">;
 
-const InputText: React.FC<{
-  label: string | Element;
-  key: string;
-  infoTooltip?: string | Element;
-  validator?: ValidatorFunction;
-  checks?: Check[];
-  transformer?: TransformerFunction;
-  suffix?: string | Element;
-  suffixPosition?: "right" | "inline";
-  prefix?: string | Element;
-  prefixPosition?: "left" | "inline";
-  charLimit?: number;
-  placeholder?: string;
-  default?: string;
-  password?: boolean;
-}> = () => {
+type Option = {
+  label: string;
+  value: any;
+};
+
+type OptionRenderFunction = (option: Option) => Element;
+
+const InputText: React.FC<
+  {
+    label: string | Element;
+    key: string;
+    infoTooltip?: string | Element;
+    validator?: StringValidatorFunction;
+    transformer?: StringTransformerFunction;
+    charLimit?: number;
+    placeholder?: string;
+    default?: string;
+    icon?: Element;
+  } & (
+    | {
+        password?: never;
+        checks?: never;
+      }
+    | {
+        password: true;
+        checks: Check[];
+      }
+  ) &
+    (
+      | {
+          suffix?: string | Element;
+          suffixPosition?: "right" | "inline";
+        }
+      | {
+          suffix: "dropdown";
+          suffixOptions: Option[];
+          suffixOptionRender: OptionRenderFunction;
+          suffixPosition?: never;
+        }
+    ) &
+    (
+      | {
+          prefix?: string | Element;
+          prefixPosition?: "right" | "inline";
+        }
+      | {
+          prefix: "dropdown";
+          prefixOptions: Option[];
+          prefixOptionRender: OptionRenderFunction;
+          prefixPosition?: never;
+        }
+    )
+> = () => {
   return <div className="fa-input-text">InputText</div>;
 };
 
