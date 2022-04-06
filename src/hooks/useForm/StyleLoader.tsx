@@ -7,7 +7,7 @@ const Alternative = React.lazy(() => import("../../themes/alternative"));
 type ThemeOptions =
   | {
       theme?: never;
-      accentColor: "string";
+      accentColor?: "string";
     }
   | {
       theme: "alternative";

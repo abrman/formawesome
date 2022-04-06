@@ -1,34 +1,29 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-
 import InputText from "./InputText";
+import { useForm } from "../../hooks";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
+const ContextProvider = (Story: React.FC) => {
+  const { FormContext } = useForm();
+  return (
+    <FormContext>
+      <Story />
+    </FormContext>
+  );
+};
+
 export default {
   title: "Form Components/InputText",
   component: InputText,
-  // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
-  argTypes: {
-    backgroundColor: { control: "color" },
-  },
+  decorators: [ContextProvider],
 } as ComponentMeta<typeof InputText>;
 
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: ComponentStory<typeof InputText> = (args) => (
   <InputText {...args} />
 );
 
 export const Primary = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
-  label: "Button",
-  key: "name",
-};
-
-export const Secondary = Template.bind({});
-Secondary.args = {
-  label: "Weight",
-  key: "weight",
-  suffix: "kg",
-  suffixPosition: "inline",
+  label: "Name:",
+  id: "name",
 };

@@ -1,32 +1,19 @@
 import React from "react";
 import { FormContext } from "../../hooks";
 import "./InputText.css";
-
-type Validation =
-  | "valid"
-  | "awaiting"
-  | { type: "warning" | "invalid"; message: string }[];
-
-type Check = { type: "incomplete" | "complete"; message: string }[];
-
-type StringTransformerFunction = (value: string) => any;
-
-type StringValidatorFunction = (
-  value: string | any,
-  transformer: StringTransformerFunction
-) => Exclude<Validation, "awaiting">;
-
-type Option = {
-  label: string;
-  value: any;
-};
-
-type OptionRenderFunction = (option: Option) => Element;
+import {
+  Validation,
+  Check,
+  StringTransformerFunction,
+  StringValidatorFunction,
+  Option,
+  OptionRenderFunction,
+} from "_types";
 
 const InputText: React.FC<
   {
     label: string | Element;
-    key: string;
+    id: string;
     infoTooltip?: string | Element;
     validator?: StringValidatorFunction;
     transformer?: StringTransformerFunction;
@@ -46,30 +33,46 @@ const InputText: React.FC<
   ) &
     (
       | {
-          suffix?: string | Element;
+          suffix?: string | Element | "dropdown";
           suffixPosition?: "right" | "inline";
         }
       | {
           suffix: "dropdown";
           suffixOptions: Option[];
-          suffixOptionRender: OptionRenderFunction;
+          suffixOptionRender?: OptionRenderFunction;
           suffixPosition?: never;
         }
     ) &
     (
       | {
-          prefix?: string | Element;
+          prefix?: string | Element | "dropdown";
           prefixPosition?: "right" | "inline";
         }
       | {
           prefix: "dropdown";
           prefixOptions: Option[];
-          prefixOptionRender: OptionRenderFunction;
+          prefixOptionRender?: OptionRenderFunction;
           prefixPosition?: never;
         }
     )
-> = () => {
-  return <div className="fa-input-text">InputText</div>;
+> = ({ label, id }) => {
+  const { setFormFieldValue, formContentRaw } = React.useContext(FormContext);
+
+  return (
+    <label className="fa-input-text">
+      <div className="fa-label-title">{label}</div>
+      <input
+        type="text"
+        name={id}
+        id={id}
+        value={formContentRaw[id]}
+        onChange={(e) => {
+          setFormFieldValue(id, e.target.value);
+        }}
+      />
+      {JSON.stringify(formContentRaw)}
+    </label>
+  );
 };
 
 export default InputText;

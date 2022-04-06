@@ -1,1 +1,1 @@
-export { useFormAwesome, FormContext } from "./useFormAwesome";
+export { useForm, FormContext } from "./useForm";
