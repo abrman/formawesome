@@ -1,5 +1,5 @@
 import React from "react";
-import { FormContext } from "../../hooks";
+import { formContext } from "stores/contexts";
 import "./InputText.css";
 import {
   Validation,
@@ -56,7 +56,7 @@ const InputText: React.FC<
         }
     )
 > = ({ label, id }) => {
-  const { setFormFieldValue, formContentRaw } = React.useContext(FormContext);
+  const { setFormFieldValue, formContentRaw } = React.useContext(formContext);
 
   return (
     <label className="fa-input-text">
@@ -65,9 +65,11 @@ const InputText: React.FC<
         type="text"
         name={id}
         id={id}
+        key={id}
         value={formContentRaw[id]}
         onChange={(e) => {
           setFormFieldValue(id, e.target.value);
+          console.log({ formContentRaw });
         }}
       />
       {JSON.stringify(formContentRaw)}

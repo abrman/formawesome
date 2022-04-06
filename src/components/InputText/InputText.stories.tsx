@@ -1,10 +1,10 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import InputText from "./InputText";
-import { useForm } from "../../hooks";
+import { useForm } from "hooks";
+import { FormContext } from "components";
 
 const ContextProvider = (Story: React.FC) => {
-  const { FormContext } = useForm();
   return (
     <FormContext>
       <Story />
@@ -12,10 +12,20 @@ const ContextProvider = (Story: React.FC) => {
   );
 };
 
+const FormDataProvider = (Story: React.FC) => {
+  const { formContentRaw } = useForm();
+  return (
+    <>
+      <Story />
+      {JSON.stringify(formContentRaw)}
+    </>
+  );
+};
+
 export default {
   title: "Form Components/InputText",
   component: InputText,
-  decorators: [ContextProvider],
+  decorators: [FormDataProvider, ContextProvider],
 } as ComponentMeta<typeof InputText>;
 
 const Template: ComponentStory<typeof InputText> = (args) => (

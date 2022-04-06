@@ -1,8 +1,8 @@
 import React from "react";
 
 // Style code splitting via [https://stackoverflow.com/questions/46835825/conditional-css-in-create-react-app]
-const Main = React.lazy(() => import("../../themes/main"));
-const Alternative = React.lazy(() => import("../../themes/alternative"));
+const Main = React.lazy(() => import("../themes/main"));
+const Alternative = React.lazy(() => import("../themes/alternative"));
 
 type ThemeOptions =
   | {

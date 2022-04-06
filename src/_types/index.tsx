@@ -1,3 +1,5 @@
+import type { ThemeOptions } from "../components";
+
 type Validation =
   | "valid"
   | "awaiting"
@@ -33,6 +35,28 @@ type FormContentRawType =
   | InputToggleType
   | InputNumberType;
 
+type formContextDataType = {
+  setFormFieldValue: (key: string, value: FormContentRawType) => void;
+  formContentRaw: {
+    [key: string]: any;
+  };
+  // formContent: { [key: string]: any | any[] };
+  // formContentRaw: { [key: string]: string | string[] };
+  // formValid: boolean;
+  // testResults: { [key: string]: any };
+  // testFunctions: { [key: string]: () => void };
+  // setShowValidation: React.Dispatch<
+  //   React.SetStateAction<{
+  //     [key: string]: boolean;
+  //   }>
+  // >;
+};
+
+type FormContextType = {
+  children: React.ReactNode;
+  showValidationOn?: "blur" | "keypress" | "manual";
+} & ThemeOptions;
+
 export type {
   Validation,
   Check,
@@ -46,4 +70,6 @@ export type {
   InputCreatableType,
   InputToggleType,
   InputNumberType,
+  formContextDataType,
+  FormContextType,
 };
