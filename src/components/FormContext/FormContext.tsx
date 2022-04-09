@@ -1,5 +1,5 @@
 import React from "react";
-import { formContext } from "stores/contexts";
+import { formContext } from "stores";
 import StyleLoader from "../StyleLoader";
 import type {
   FormContextType,

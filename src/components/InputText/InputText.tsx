@@ -1,6 +1,5 @@
 import React from "react";
-import { formContext } from "stores/contexts";
-import "./InputText.css";
+import { formContext } from "stores";
 import {
   Validation,
   Check,
@@ -59,7 +58,7 @@ const InputText: React.FC<
   const { setFormFieldValue, formContentRaw } = React.useContext(formContext);
 
   return (
-    <label className="fa-input-text">
+    <label className={["fa-label", "fa-input-text"].join(" ")}>
       <div className="fa-label-title">{label}</div>
       <input
         type="text"

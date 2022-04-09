@@ -1,7 +1,7 @@
 import React from "react";
 import StyleLoader, { ThemeOptions } from "../../components/StyleLoader";
 import type { StringValidatorFunction, FormContentRawType } from "_types";
-import { formContext } from "stores/contexts";
+import { formContext } from "stores";
 
 type useFormOptions = {
   showValidationOn?: "blur" | "keypress" | "manual";
